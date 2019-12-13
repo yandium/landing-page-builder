@@ -1,3 +1,15 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :landing_pages do
+    collection do
+      post 'upload_template'
+      post 'set_asset'
+    end
+  end
+  devise_for :users, path: ''
+
+  root to: 'home#index'
+
+  get '/user' => 'landing_pages#index', :as => :user_root
 end

@@ -1,0 +1,26 @@
+<p id="notice" class="alert alert-success"><%= notice %></p>
+
+<h1>Landing Pages</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @landing_pages.each do |landing_page| %>
+      <tr>
+        <td><%= landing_page.id %></td>
+        <td class="p-2"><%= link_to 'Show', landing_page, target: :_blank %></td>
+        <td class="p-2"><%= link_to 'Edit', edit_landing_page_path(landing_page) %></td>
+        <td class="p-2"><%= link_to 'Destroy', landing_page, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New', new_landing_page_path %>
