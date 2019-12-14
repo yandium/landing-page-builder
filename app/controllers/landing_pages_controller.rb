@@ -4,7 +4,6 @@ require 'open-uri'
 
 class LandingPagesController < ApplicationController
   before_action :set_landing_page, only: %i[show edit update destroy]
-  skip_before_action :verify_authenticity_token, only: [:create, :update, :set_asset]
   before_action :authenticate_user!, except: [:show]
 
   def index
@@ -54,7 +53,7 @@ class LandingPagesController < ApplicationController
 
   def set_asset
     assetName = unique_id
-    targetPath = Rails.root.join('public', 'assets', assetName);
+    targetPath = Rails.root.join('public', 'files', assetName);
 
     File.open(targetPath, 'wb') do |file|
       if params[:type] == 'upload'
@@ -66,7 +65,11 @@ class LandingPagesController < ApplicationController
       end
     end
 
-    render json: { url: "/assets/#{assetName}" }
+    render json: { url: "/files/#{assetName}" }
+  end
+
+  def upload_template
+    render json: { success: true }
   end
 
   private

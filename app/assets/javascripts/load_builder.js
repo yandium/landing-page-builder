@@ -24,20 +24,40 @@ $(() => {
         { type: "label", tag: "{CURRENT_YEAR}" }
     ];
 
+    const templates = [{
+        name: 'Passion',
+        url: window.location.origin + '/templates/Passion',
+        thumbnail: '/templates/Passion/thumb.png',
+    }, {
+        name: 'Business Newsletter Gray',
+        url: '/templates/Business_Newsletter_Gray',
+        thumbnail: '/templates/Business_Newsletter_Gray/thumb.png',
+    }, {
+        name: 'Creative Newsletter',
+        url: '/templates/Creative_Newsletter',
+        thumbnail: '/templates/Creative_Newsletter/thumb.png',
+    }];
+
     const id = $("#landingpage_id").val() || "";
     const baseUrl = `${window.location.origin}/landing_pages`;
+    const initEditor = (template) => {
+        window.editor = new Editor({
+            root: "/builder/",
+            url: template,
+            urlBack: `${baseUrl}`,
+            saveUrl: `${baseUrl}/${id}`,
+            saveMethod: id ? "PUT" : "POST",
+            uploadAssetMethod: "POST",
+            uploadAssetUrl: `${baseUrl}/set_asset`,
+            uploadTemplateUrl: `${baseUrl}/upload_template`,
+            templates,
+            tags,
+            changeTemplateCallback: (url) => {
+                initEditor(url);
+            }
+        });
+        editor.init();
+    }
 
-    window.editor = new Editor({
-        root: "/builder/",
-        url: id ? `${baseUrl}/${id}` : "",
-        urlBack: `${baseUrl}`,
-        templates: [],
-        tags,
-        saveUrl: `${baseUrl}/${id}`,
-        saveMethod: id ? "PUT" : "POST",
-        uploadAssetMethod: "POST",
-        uploadAssetUrl: `${baseUrl}/set_asset`,
-        changeTemplateCallback: url => {}
-    });
-    editor.init();
+    initEditor(id ? `${baseUrl}/${id}` : "/templates/New");
 });

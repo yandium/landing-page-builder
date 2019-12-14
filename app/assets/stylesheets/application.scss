@@ -12,8 +12,8 @@
  *
  */
 
-@import "builder.css";
+ @import "./builder.css";
 
-html, body {
-    height: unset !important;
+body {
+    overflow: hidden;
 }

@@ -13,5 +13,5 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
-//= require builder
 //= require ./cable
+//= require ./builder
